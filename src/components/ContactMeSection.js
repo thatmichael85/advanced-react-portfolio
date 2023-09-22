@@ -25,16 +25,15 @@ const LandingSection = () => {
     initialValues: {
       firstName: "",
       email: "",
-      type: "openSource",
+      type: "hireMe",
       comment: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      alert();
     },
     validationSchema: Yup.object({
       firstName: Yup.string(),
       email: Yup.string().email("Must be valid email"),
-      type: Yup.object().optional(),
       comment: Yup.string().min(25, "Must be at least 25 characters"),
     }),
   });
