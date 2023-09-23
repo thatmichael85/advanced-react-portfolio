@@ -58,6 +58,7 @@ const Header = () => {
 
   useEffect(() => {
     const onScroll = (event) => {
+      event.preventDefault();
       toggleNavBarVisbility();
     };
     window.addEventListener("scroll", onScroll);
