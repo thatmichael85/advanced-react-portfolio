@@ -29,14 +29,25 @@ const LandingSection = () => {
       comment: "",
     },
     onSubmit: (values) => {
-      alert();
+      submit("https://httpbin.org/post",values)
     },
     validationSchema: Yup.object({
-      firstName: Yup.string(),
-      email: Yup.string().email("Must be valid email"),
-      comment: Yup.string().min(25, "Must be at least 25 characters"),
+      firstName: Yup.string().required("Required"),
+      email: Yup.string().email("Must be valid email").required("Required"),
+      comment: Yup.string()
+        .min(25, "Must be at least 25 characters")
+        .required("Required"),
     }),
   });
+
+  useEffect(() => { 
+    if (response) { 
+      onOpen(response.type, response.message); 
+      if (response.type === 'success') { 
+        formik.resetForm(); 
+      } 
+    } 
+  }, [response]);
 
   return (
     <FullScreenSection
