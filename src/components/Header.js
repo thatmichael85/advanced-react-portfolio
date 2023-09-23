@@ -44,7 +44,9 @@ const Header = () => {
   };
 
   const [lastScrollY, setLastScrollY] = useState(0);
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure({
+    defaultIsOpen:true
+  })
   const toggleNavBarVisbility = () => {
     if (window.scrollY > lastScrollY) {
       // if scroll down hide the navbar
