@@ -7,8 +7,7 @@ import {
   faMedium,
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
-import { Box, HStack } from "@chakra-ui/react";
-import { SlideFade } from "@chakra-ui/react";
+import { Box, HStack, Slide, Collapse, SlideFade, useDisclosure  } from "@chakra-ui/react";
 const socials = [
   {
     icon: faEnvelope,
@@ -45,15 +44,14 @@ const Header = () => {
   };
 
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isOpen, setOpen] = useState(true);
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const toggleNavBarVisbility = () => {
     if (window.scrollY > lastScrollY) {
       // if scroll down hide the navbar
-      setOpen(false);
+      onClose();
     } else {
       // if scroll up show the navbar
-      setOpen(true);
+      onOpen();
     }
     setLastScrollY(window.scrollY);
   };
@@ -69,16 +67,12 @@ const Header = () => {
   }, [lastScrollY]);
 
   return (
-    <SlideFade in={isOpen} offsetY="20px">
+    <Collapse in={isOpen} transition={{exit: {duration: 0.1}, enter: {duration: 0.1}}}>
       <Box
         position="fixed"
         top={0}
         left={0}
         right={0}
-        translateY={0}
-        transitionProperty="transform"
-        transitionDuration="1s"
-        transitionTimingFunction="ease-in-out"
         backgroundColor="#18181b"
       >
         <Box color="white" maxWidth="1280px" margin="0 auto">
@@ -114,7 +108,7 @@ const Header = () => {
           </HStack>
         </Box>
       </Box>
-    </SlideFade>
+    </Collapse>
   );
 };
 export default Header;
